@@ -7,11 +7,8 @@ var minute = 00;
 var second = 00;
 var display = document.getElementById("remaining");
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
-async function setTimer(m,s) {
+function setTimer(m,s) {
     minute = m;
     second = s;
 
@@ -30,6 +27,8 @@ async function setTimer(m,s) {
         minute = total_sec / 60;
         second = total_sec % 60;
         display.innerHTML =  minute.toString() + ":" + second.toString();
+        
+        sleep(1000);
     }
 }
 
