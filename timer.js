@@ -7,14 +7,30 @@ var minute = 00;
 var second = 00;
 var display = document.getElementById("remaining");
 
-function setTimer(m,s) {
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function setTimer(m,s) {
     minute = m;
     second = s;
+
+    total_sec = minute * 60 + second;
 
     // TODO: show two digit formatting.
     //    Today, we show '5:0'.  This should be '5:00'.
     //
+
     display.innerHTML =  minute.toString() + ":" + second.toString();
+    while (total_sec > 0) {
+        --total_sec;    // total_sec = total_sec - 1;   (++total_sec) or (total_sec++)
+
+        // TODO: 
+        //    Count down by 1
+        minute = total_sec / 60;
+        second = total_sec % 60;
+        display.innerHTML =  minute.toString() + ":" + second.toString();
+    }
 }
 
 but5min.addEventListener('click',  function() { setTimer(5,0); }  );
