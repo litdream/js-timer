@@ -9,14 +9,25 @@ var second = 00;
 var display = document.getElementById("remaining");
 
 var globalTimer = null;
-var tickSound = new Audio('clock-tick.mp3');
-var alarmSound = new Audio('Alarmclockringing.mp3');
+var tickSound = new Audio();
+var tickSound_loaded = false;
+var alarmSound = new Audio();
+var alarmSound_loaded = false;
+
+tickSound.play();
+alarmSound.play();
 
 function updateDisplay() {
 
     // TODO: show two digit formatting.
     //    Today, we show '5:0'.  This should be '5:00'.
     //
+    if (tickSound_loaded == false) {
+        tickSound.src = "clock-tick.mp3";
+        tickSound_loaded = true;
+    }
+    tickSound.play();
+
     display.innerHTML =  minute.toString() + ":" + second.toString();
     tickSound.play();
     --second;
@@ -27,6 +38,10 @@ function updateDisplay() {
 
     if (minute < 0) {
         clearInterval(globalTimer);
+        if (alarmSound_loaded == false) {
+            alarmSound.src = "Alarmclockringing.mp3";
+            alarmSound_loaded = true;
+        }
         alarmSound.play();
     }
 }
